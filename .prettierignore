@@ -1,0 +1,8 @@
+.idea
+node_modules
+.env
+coverage
+*.log
+build
+*.png
+*.jpg

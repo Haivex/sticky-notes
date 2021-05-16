@@ -1,0 +1,7 @@
+.idea
+node_modules
+.env
+coverage
+*.log
+build
+src/static/js
