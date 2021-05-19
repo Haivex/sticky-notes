@@ -23,3 +23,15 @@ describe('isValid', () => {
     expect(MeasureOfLength.isValid('20px36')).toBeFalsy();
   });
 });
+
+describe('getNumberAndUnit', () => {
+  test('should return tupple array with number and unit for 200px', () => {
+    expect(MeasureOfLength.getNumberAndUnit('200px')).toStrictEqual([
+      200,
+      'px',
+    ]);
+  });
+  test('should throw error for wrong format', () => {
+    expect(() => MeasureOfLength.getNumberAndUnit('px200')).toThrowError();
+  });
+});
