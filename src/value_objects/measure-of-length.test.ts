@@ -35,3 +35,18 @@ describe('getNumberAndUnit', () => {
     expect(() => MeasureOfLength.getNumberAndUnit('px200')).toThrowError();
   });
 });
+
+describe('create', () => {
+  test('should create measure for right string input', () => {
+    expect(MeasureOfLength.create('200px')).toBeDefined();
+  });
+  test('should create measure for right number input', () => {
+    expect(MeasureOfLength.create(200)).toBeDefined();
+  });
+  test('should throw error for wrong number input', () => {
+    expect(() => MeasureOfLength.create(-200)).toThrowError();
+  });
+  test('should throw error for wrong string input', () => {
+    expect(() => MeasureOfLength.create('-200p8')).toThrowError();
+  });
+});
