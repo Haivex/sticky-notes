@@ -1,18 +1,30 @@
 import { IStickyNoteHeader } from '../interfaces/sticky-note/sticky-note-header.interface';
 import Title from '../value_objects/title';
 
-class StickyNoteHeader implements IStickyNoteHeader {
+export default class StickyNoteHeader implements IStickyNoteHeader {
+  private container = document.createElement('div');
+
   private constructor(
     public title: Title,
     public actionButtons?: HTMLButtonElement[],
   ) {}
 
-  static create(title: Title, actionButtons?: HTMLButtonElement[]) {
+  static create(
+    title: Title,
+    actionButtons?: HTMLButtonElement[],
+  ): StickyNoteHeader {
     return new StickyNoteHeader(title, actionButtons);
   }
 
   render(): HTMLElement {
-    const container = document.createElement('div');
-    return container;
+    this.container.innerHTML = '';
+
+    const text = document.createTextNode(this.title.value);
+    const header = document.createElement('h2');
+
+    header.appendChild(text);
+    this.container.appendChild(header);
+
+    return this.container;
   }
 }
