@@ -49,4 +49,34 @@ describe('create', () => {
   test('should throw error for wrong string input', () => {
     expect(() => MeasureOfLength.create('-200p8')).toThrowError();
   });
+
+  describe('value', () => {
+    test('should return 200px for string: 200px', () => {
+      expect(MeasureOfLength.create('200px').value).toBe('200px');
+    });
+    test('should return 200px for number: 200', () => {
+      expect(MeasureOfLength.create(200).value).toBe('200px');
+    });
+  });
+
+  describe('measureNumber', () => {
+    test('should return number 200 for string: 200px', () => {
+      expect(MeasureOfLength.create('200px').measureNumber).toBe(200);
+    });
+    test('should return number 200 for number: 200', () => {
+      expect(MeasureOfLength.create(200).measureNumber).toBe(200);
+    });
+  });
+
+  describe('unit', () => {
+    test('should return px for string: 200px', () => {
+      expect(MeasureOfLength.create('200px').unit).toBe('px');
+    });
+    test('should return rem for string: 200rem', () => {
+      expect(MeasureOfLength.create('200rem').unit).toBe('rem');
+    });
+    test('should return px for number: 200', () => {
+      expect(MeasureOfLength.create(200).unit).toBe('px');
+    });
+  });
 });
