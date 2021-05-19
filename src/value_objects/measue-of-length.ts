@@ -36,7 +36,7 @@ export default class MeasureOfLength {
     if (typeof measure === 'string') {
       return new MeasureOfLength(...this.getNumberAndUnit(measure));
     }
-    if (this.isValid(measure)) {
+    if (!this.isValid(measure)) {
       throw new Error('Measure can not be negative number');
     }
     return new MeasureOfLength(measure, 'px');
