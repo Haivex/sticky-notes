@@ -11,8 +11,11 @@ export default class MeasureOfLength {
     return this.measureNumber + this.unit;
   }
 
-  static isValid(measureOfLength: string): boolean {
-    return this.measureOfLengthRegExp.test(measureOfLength);
+  static isValid(measureOfLength: string | number): boolean {
+    if (typeof measureOfLength === 'string') {
+      return this.measureOfLengthRegExp.test(measureOfLength);
+    }
+    return measureOfLength > 0;
   }
 
   static getNumberAndUnit(measureOfLength: string): [number, string] {
@@ -33,7 +36,7 @@ export default class MeasureOfLength {
     if (typeof measure === 'string') {
       return new MeasureOfLength(...this.getNumberAndUnit(measure));
     }
-    if (measure < 0) {
+    if (this.isValid(measure)) {
       throw new Error('Measure can not be negative number');
     }
     return new MeasureOfLength(measure, 'px');
