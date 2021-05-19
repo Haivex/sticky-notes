@@ -7,4 +7,18 @@ export default class MeasureOfLength {
   static isValid(measureOfLength: string): boolean {
     return this.measureOfLengthRegExp.test(measureOfLength);
   }
+
+  static getNumberAndUnit(measureOfLength: string): [number, string] {
+    if (this.isValid(measureOfLength)) {
+      const result = measureOfLength.match(
+        this.measureOfLengthRegExp,
+      ) as RegExpMatchArray;
+      const { measureNumber, unit } = result.groups as {
+        measureNumber: string;
+        unit: string;
+      };
+      return [Number(measureNumber), unit];
+    }
+    throw new Error('Wrong format!');
+  }
 }
