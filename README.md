@@ -1,2 +1,2 @@
-# Typescript boilerplate
-Typescript Boilerplate with Good Practices ( ESLint, Stylelint, Prettier, Husky, CommitLint, tests) and Fast Development ( ESBuild)
+# Movable sticky notes
+Movable sticky notes without library (for collision and movable objects)
