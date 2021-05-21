@@ -5,7 +5,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
   private container = document.createElement('div');
 
   private constructor(
-    public title: Title,
+    private title: Title,
     public actionButtons?: HTMLButtonElement[],
   ) {}
 
@@ -33,5 +33,14 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
     }
 
     return this.container;
+  }
+
+  getTitle(): Title {
+    return this.title;
+  }
+
+  changeTitle(newTitle: Title): Title {
+    this.title = newTitle;
+    return this.title;
   }
 }
