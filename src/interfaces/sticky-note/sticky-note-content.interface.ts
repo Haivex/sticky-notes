@@ -1,3 +1,5 @@
 export interface StickyNoteContent {
-  value: string;
+  getContent(): string;
+  changeContent(value: string): string;
+  render(): HTMLElement;
 }
