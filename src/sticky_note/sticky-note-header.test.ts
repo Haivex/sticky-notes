@@ -7,6 +7,7 @@ import StickyNoteHeader from './sticky-note-header';
 
 describe('render', () => {
   let header: StickyNoteHeader;
+  let headerElement: HTMLElement;
   const title = Title.create('My title');
   const buttons: HTMLButtonElement[] = [];
 
@@ -18,25 +19,22 @@ describe('render', () => {
 
   beforeEach(() => {
     header = StickyNoteHeader.create(title, buttons);
+    headerElement = header.render();
   });
 
   test('should render title', () => {
-    const element = header.render();
-    expect(getByText(element, 'My title')).toBeTruthy();
+    expect(getByText(headerElement, 'My title')).toBeTruthy();
   });
 
   test('should render two action buttons', () => {
-    const element = header.render();
-    expect(getAllByRole(element, 'button').length).toBe(2);
+    expect(getAllByRole(headerElement, 'button').length).toBe(2);
   });
 
   test('should render edit button', () => {
-    const element = header.render();
-    expect(getByText(element, 'Edit')).toBeTruthy();
+    expect(getByText(headerElement, 'Edit')).toBeTruthy();
   });
 
   test('should render remove button', () => {
-    const element = header.render();
-    expect(getByText(element, 'Remove')).toBeTruthy();
+    expect(getByText(headerElement, 'Remove')).toBeTruthy();
   });
 });
