@@ -29,6 +29,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
 
     if (this.actionButtons) {
       this.actionButtons.forEach((button) => buttons.appendChild(button));
+      this.container.appendChild(buttons);
     }
 
     return this.container;
