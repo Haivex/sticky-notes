@@ -5,5 +5,5 @@ export interface Subscriber {
 export interface Mediator {
   notify(event: string, data: Record<string, unknown>): void;
   subscribe(event: string, subscriber: Subscriber): void;
-  usubscribe(event: string, subscriber: Subscriber): void;
+  unsubscribe(event: string, subscriber: Subscriber): void;
 }
