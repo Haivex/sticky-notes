@@ -1,9 +1,7 @@
-import { Mediator, Subscriber } from '../interfaces/mediator.interface';
+import { Mediator, Subscriber, Events } from '../interfaces/mediator.interface';
 
 export default class StickyNoteMediator implements Mediator {
-  private events: {
-    [eventName: string]: Subscriber[];
-  } = {};
+  private events: Events = {};
 
   notify(event: string, data: Record<string, unknown>): void {
     this.events[event].forEach((fn) => fn.call(data));
@@ -23,5 +21,9 @@ export default class StickyNoteMediator implements Mediator {
     if (this.events[event].includes(subscriber)) {
       this.events[event] = this.events[event].filter((fn) => fn !== subscriber);
     }
+  }
+
+  getEvents(): Events {
+    return this.events;
   }
 }

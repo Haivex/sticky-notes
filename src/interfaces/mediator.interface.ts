@@ -7,3 +7,7 @@ export interface Mediator {
   subscribe(event: string, subscriber: Subscriber): void;
   unsubscribe(event: string, subscriber: Subscriber): void;
 }
+
+export interface Events {
+  [eventName: string]: Subscriber[];
+}
