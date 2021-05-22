@@ -1,5 +1,5 @@
 export interface Subscriber {
-  (): unknown;
+  (data: unknown): unknown;
 }
 
 export interface Mediator {
