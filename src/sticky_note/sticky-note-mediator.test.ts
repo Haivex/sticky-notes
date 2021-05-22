@@ -44,3 +44,39 @@ describe('subscribe', () => {
     expect(subscribedFunctionsToEventTwo.length).toBe(1);
   });
 });
+
+describe('unsubscribe', () => {
+  let mediator: StickyNoteMediator;
+  beforeEach(() => {
+    mediator = new StickyNoteMediator();
+    mediator.subscribe('exampleEvent', mock1);
+    mediator.subscribe('exampleEvent', mock2);
+    mediator.subscribe('exampleEvent2', mock1);
+    mediator.subscribe('exampleEvent2', mock2);
+  });
+
+  test('should unsubscribe given function from given event', () => {
+    mediator.unsubscribe('exampleEvent', mock1);
+    const subscribedFunctions = mediator.getEvents().exampleEvent;
+    expect(subscribedFunctions.length).toBe(1);
+    expect(subscribedFunctions).not.toContain(mock1);
+    expect(subscribedFunctions).toContain(mock2);
+  });
+
+  test('should do nothing if function is not subscribed', () => {
+    mediator.unsubscribe('exampleEvent', mock1);
+    mediator.unsubscribe('exampleEvent', mock1);
+    const subscribedFunctions = mediator.getEvents().exampleEvent;
+    expect(subscribedFunctions.length).toBe(1);
+    expect(subscribedFunctions).not.toContain(mock1);
+    expect(subscribedFunctions).toContain(mock2);
+  });
+
+  test('should unsubscribe given function only from given event', () => {
+    mediator.unsubscribe('exampleEvent', mock1);
+    const subscribedFunctionsFromEventOne = mediator.getEvents().exampleEvent;
+    const subscribedFunctionsFromEventTwo = mediator.getEvents().exampleEvent2;
+    expect(subscribedFunctionsFromEventOne).not.toContain(mock1);
+    expect(subscribedFunctionsFromEventTwo).toContain(mock1);
+  });
+});
