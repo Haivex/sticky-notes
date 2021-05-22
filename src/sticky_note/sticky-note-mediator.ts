@@ -12,6 +12,12 @@ export default class StickyNoteMediator implements Mediator {
   subscribe(event: string, subscriber: Subscriber): void {
     if (!this.events[event]) {
       this.events[event] = [subscriber];
+      return;
     }
+    if (this.events[event].includes(subscriber)) return;
+    this.events[event].push(subscriber);
   }
+
+  /* eslint-disable class-methods-use-this */
+  usubscribe(event: string, subscriber: Subscriber): void {}
 }
