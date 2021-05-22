@@ -80,3 +80,23 @@ describe('unsubscribe', () => {
     expect(subscribedFunctionsFromEventTwo).toContain(mock1);
   });
 });
+
+describe('notify', () => {
+  let mediator: StickyNoteMediator;
+  beforeEach(() => {
+    mediator = new StickyNoteMediator();
+    mediator.subscribe('exampleEvent', mock1);
+    mediator.subscribe('exampleEvent', mock2);
+  });
+  test('should call subscribed functions', () => {
+    mediator.notify('exampleEvent', {});
+    expect(mock1).toBeCalledTimes(1);
+    expect(mock2).toBeCalledTimes(1);
+  });
+  test('should call subscribed functions with given data', () => {
+    const testedData = { test: 'test value' };
+    mediator.notify('exampleEvent', testedData);
+    expect(mock1).toBeCalledWith(testedData);
+    expect(mock2).toBeCalledWith(testedData);
+  });
+});
