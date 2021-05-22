@@ -4,7 +4,7 @@ export default class StickyNoteMediator implements Mediator {
   private events: Events = {};
 
   notify(event: string, data: Record<string, unknown>): void {
-    this.events[event].forEach((fn) => fn.call(data));
+    this.events[event].forEach((fn) => fn.call(this, data));
   }
 
   subscribe(event: string, subscriber: Subscriber): void {
