@@ -32,6 +32,7 @@ export default class StickyNoteContent implements IStickyNoteContent {
 
   changeContent(newContent: string): string {
     this.content = newContent;
+    this.render();
     return this.content;
   }
 }
