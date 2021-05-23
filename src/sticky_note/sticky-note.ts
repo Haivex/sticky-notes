@@ -12,8 +12,8 @@ export default class StickyNote {
   render(): HTMLElement {
     this.container.innerHTML = '';
     const headerElement = this.stickyNoteHeader.render();
-    const contentElemenet = this.stickyNoteContent.render();
-    this.container.append(headerElement, contentElemenet);
+    const contentElement = this.stickyNoteContent.render();
+    this.container.append(headerElement, contentElement);
     return this.container;
   }
 }
