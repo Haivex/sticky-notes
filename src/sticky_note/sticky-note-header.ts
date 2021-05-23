@@ -41,6 +41,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
 
   changeTitle(newTitle: Title): Title {
     this.title = newTitle;
+    this.render();
     return this.title;
   }
 }
