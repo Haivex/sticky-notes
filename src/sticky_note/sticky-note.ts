@@ -1,3 +1,4 @@
+import { Size } from '../interfaces/size.interface';
 import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
 
@@ -7,6 +8,7 @@ export default class StickyNote {
   constructor(
     private stickyNoteHeader: StickyNoteHeader,
     private stickyNoteContent: StickyNoteContent,
+    private size: Size,
   ) {}
 
   render(): HTMLElement {
