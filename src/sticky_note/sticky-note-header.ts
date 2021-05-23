@@ -23,6 +23,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
     const header = document.createElement('h2');
 
     header.appendChild(text);
+    header.dataset.testid = 'title-element';
     this.container.appendChild(header);
 
     const buttons = document.createElement('div');
