@@ -28,3 +28,7 @@
 .note__content__text {
   padding: 8px;
 }
+
+.action_buttons {
+  display: flex;
+}

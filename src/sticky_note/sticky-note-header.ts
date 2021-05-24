@@ -29,6 +29,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
     this.container.appendChild(header);
 
     const buttons = document.createElement('div');
+    buttons.className = 'action_buttons';
 
     if (this.actionButtons) {
       this.actionButtons.forEach((button) => buttons.appendChild(button));
