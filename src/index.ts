@@ -1,4 +1,4 @@
-const b = document.createElement('b');
-b.textContent = 'My text';
+import app from './app';
 
-document.body.appendChild(b);
+const root = document.querySelector('#root') as HTMLElement;
+root.append(app());

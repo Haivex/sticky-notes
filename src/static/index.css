@@ -3,3 +3,28 @@
   border: 0;
   padding: 0;
 }
+
+.note {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.note__header {
+  background-color: #f9b208;
+  display: flex;
+  justify-content: space-between;
+}
+.note__header__title {
+  padding: 8px;
+}
+
+.note__content {
+  background-color: #f7fd04;
+  overflow: auto;
+  height: 100%;
+}
+
+.note__content__text {
+  padding: 8px;
+}
