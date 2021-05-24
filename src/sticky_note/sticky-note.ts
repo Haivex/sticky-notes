@@ -13,6 +13,7 @@ export default class StickyNote {
 
   render(): HTMLElement {
     this.container.innerHTML = '';
+    this.container.className = 'note';
     const headerElement = this.stickyNoteHeader.render();
     const contentElement = this.stickyNoteContent.render();
     this.container.append(headerElement, contentElement);
