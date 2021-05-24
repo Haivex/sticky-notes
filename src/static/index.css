@@ -31,4 +31,14 @@
 
 .action_buttons {
   display: flex;
+  align-items: center;
+}
+
+.action_button {
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.action_button:hover {
+  cursor: pointer;
 }
