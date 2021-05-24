@@ -18,7 +18,7 @@ const bundlerConfig = {
   },
   outdir: 'build/js',
   plugins: [],
-  target: ['chrome58', 'firefox57', 'safari11', 'edge16'],
+  target: ['es2020'],
 };
 
 /* eslint-disable no-console */
