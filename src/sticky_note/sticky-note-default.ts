@@ -1,3 +1,5 @@
+import deleteButton from '../action_buttons/delete';
+import editButton from '../action_buttons/edit';
 import renameButton from '../action_buttons/rename';
 import MeasureOfLength from '../value_objects/measue-of-length';
 import Title from '../value_objects/title';
@@ -10,7 +12,11 @@ const createDefaultStickyNote = (
   content?: string,
 ): StickyNote => {
   const createdTitle = Title.create(title);
-  const header = StickyNoteHeader.create(createdTitle, [renameButton]);
+  const header = StickyNoteHeader.create(createdTitle, [
+    renameButton,
+    editButton,
+    deleteButton,
+  ]);
   const createdContent = StickyNoteContent.create(content);
   const height = MeasureOfLength.create(250);
   const width = MeasureOfLength.create(250);
