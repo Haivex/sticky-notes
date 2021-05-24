@@ -37,8 +37,10 @@
 .action_button {
   padding: 8px;
   border-radius: 50%;
+  background-color: transparent;
 }
 
 .action_button:hover {
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
 }
