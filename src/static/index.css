@@ -28,3 +28,20 @@
 .note__content__text {
   padding: 8px;
 }
+
+.action_buttons {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.action_button {
+  padding: 8px;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.action_button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
