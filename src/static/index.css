@@ -3,3 +3,19 @@
   border: 0;
   padding: 0;
 }
+
+.note {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.note__header {
+  background-color: #f9b208;
+}
+
+.note__content {
+  background-color: #f7fd04;
+  overflow: auto;
+  height: 100%;
+}
