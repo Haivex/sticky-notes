@@ -11,8 +11,8 @@ const createDefaultStickyNote = (
   const createdTitle = Title.create(title);
   const header = StickyNoteHeader.create(createdTitle);
   const createdContent = StickyNoteContent.create(content);
-  const height = MeasureOfLength.create(100);
-  const width = MeasureOfLength.create(100);
+  const height = MeasureOfLength.create(250);
+  const width = MeasureOfLength.create(250);
   const note = new StickyNote(header, createdContent, { height, width });
   return note;
 };
