@@ -15,9 +15,11 @@ export default class StickyNoteContent implements IStickyNoteContent {
 
   render(): HTMLElement {
     this.container.innerHTML = '';
+    this.container.className = 'header__content';
 
     const text = document.createTextNode(this.content);
     const contentElement = document.createElement('p');
+    contentElement.className = 'header__content__text';
     contentElement.dataset.testid = 'paragraph-element';
 
     contentElement.appendChild(text);

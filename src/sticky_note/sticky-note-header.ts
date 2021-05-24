@@ -18,9 +18,11 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
 
   render(): HTMLElement {
     this.container.innerHTML = '';
+    this.container.className = 'note__header';
 
     const text = document.createTextNode(this.title.value);
     const header = document.createElement('h2');
+    header.className = 'note__header__title';
 
     header.appendChild(text);
     header.dataset.testid = 'title-element';
