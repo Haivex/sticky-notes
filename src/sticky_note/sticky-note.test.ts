@@ -7,16 +7,28 @@ import Title from '../value_objects/title';
 import StickyNote from './sticky-note';
 import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
+import StickyNoteMediator from './sticky-note-mediator';
 
 describe('render', () => {
   let renderedNote: HTMLElement;
   beforeAll(() => {
     const createdTitle = Title.create('Exmaple title');
-    const header = StickyNoteHeader.create(createdTitle);
-    const createdContent = StickyNoteContent.create('Example content');
+    const header = StickyNoteHeader.create(
+      createdTitle,
+      new StickyNoteMediator(),
+    );
+    const createdContent = StickyNoteContent.create(
+      new StickyNoteMediator(),
+      'Example content',
+    );
     const height = MeasureOfLength.create(100);
     const width = MeasureOfLength.create(100);
-    const note = new StickyNote(header, createdContent, { height, width });
+    const note = new StickyNote(
+      header,
+      createdContent,
+      { height, width },
+      new StickyNoteMediator(),
+    );
     renderedNote = note.render();
   });
 
