@@ -9,7 +9,12 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
     private title: Title,
     public readonly mediator: Mediator,
     public actionButtons?: HTMLButtonElement[],
-  ) {}
+  ) {
+    this.mediator.subscribe('renameTriggered', {
+      callback: this.changeTitle,
+      thisRef: this,
+    });
+  }
 
   static create(
     title: Title,
