@@ -1,3 +1,4 @@
+import { Mediator } from '../interfaces/mediator.interface';
 import { IStickyNoteHeader } from '../interfaces/sticky-note/sticky-note-header.interface';
 import Title from '../value_objects/title';
 
@@ -6,14 +7,21 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
 
   private constructor(
     private title: Title,
+    public readonly mediator: Mediator,
     public actionButtons?: HTMLButtonElement[],
-  ) {}
+  ) {
+    this.mediator.subscribe('renameTriggered', {
+      callback: this.changeTitle,
+      thisRef: this,
+    });
+  }
 
   static create(
     title: Title,
+    mediator: Mediator,
     actionButtons?: HTMLButtonElement[],
   ): StickyNoteHeader {
-    return new StickyNoteHeader(title, actionButtons);
+    return new StickyNoteHeader(title, mediator, actionButtons);
   }
 
   render(): HTMLElement {
