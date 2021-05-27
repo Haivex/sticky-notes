@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-types */
 export interface Subscriber {
-  (data: unknown): unknown;
+  callback: Function;
+  thisRef: ThisParameterType<Subscriber['callback']>;
 }
 
 export interface Mediator {
-  notify(event: string, data: Record<string, unknown>): void;
+  notify(event: string, data: { value: unknown }): void;
   subscribe(event: string, subscriber: Subscriber): void;
   unsubscribe(event: string, subscriber: Subscriber): void;
 }

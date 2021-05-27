@@ -4,6 +4,7 @@
 import { getAllByRole, getByText } from '@testing-library/dom';
 import Title from '../value_objects/title';
 import StickyNoteHeader from './sticky-note-header';
+import StickyNoteMediator from './sticky-note-mediator';
 
 const title = Title.create('My title');
 const newTitle = Title.create('New title');
@@ -20,7 +21,7 @@ describe('render', () => {
   buttons.push(editButton, removeButton);
 
   beforeAll(() => {
-    header = StickyNoteHeader.create(title, buttons);
+    header = StickyNoteHeader.create(title, new StickyNoteMediator(), buttons);
     headerElement = header.render();
   });
 
@@ -43,19 +44,19 @@ describe('render', () => {
 
 describe('getTitle', () => {
   test('should return title', () => {
-    const header = StickyNoteHeader.create(title);
+    const header = StickyNoteHeader.create(title, new StickyNoteMediator());
     expect(header.getTitle().value).toBe('My title');
   });
 });
 
 describe('changeTitle', () => {
   test('should return new title', () => {
-    const header = StickyNoteHeader.create(title);
+    const header = StickyNoteHeader.create(title, new StickyNoteMediator());
     expect(header.changeTitle(newTitle).value).toBe('New title');
   });
 
   test('should render new title', () => {
-    const header = StickyNoteHeader.create(title);
+    const header = StickyNoteHeader.create(title, new StickyNoteMediator());
     header.changeTitle(newTitle);
     const headerElement = header.render();
 

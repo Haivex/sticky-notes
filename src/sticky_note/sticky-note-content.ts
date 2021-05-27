@@ -1,3 +1,4 @@
+import { Mediator } from '../interfaces/mediator.interface';
 import { IStickyNoteContent } from '../interfaces/sticky-note/sticky-note-content.interface';
 
 export default class StickyNoteContent implements IStickyNoteContent {
@@ -5,12 +6,12 @@ export default class StickyNoteContent implements IStickyNoteContent {
 
   private content;
 
-  private constructor(content?: string) {
+  private constructor(public readonly mediator: Mediator, content?: string) {
     this.content = content || '';
   }
 
-  static create(content?: string): StickyNoteContent {
-    return new StickyNoteContent(content);
+  static create(mediator: Mediator, content?: string): StickyNoteContent {
+    return new StickyNoteContent(mediator, content);
   }
 
   render(): HTMLElement {
