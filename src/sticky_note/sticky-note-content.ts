@@ -22,6 +22,7 @@ export default class StickyNoteContent implements IStickyNoteContent {
     const contentElement = document.createElement('p');
     contentElement.className = 'note__content__text';
     contentElement.dataset.testid = 'paragraph-element';
+    contentElement.contentEditable = 'true';
 
     contentElement.appendChild(text);
     this.container.appendChild(contentElement);

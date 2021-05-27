@@ -34,6 +34,8 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
 
     header.appendChild(text);
     header.dataset.testid = 'title-element';
+    header.contentEditable = 'true';
+
     this.container.appendChild(header);
 
     const buttons = document.createElement('div');
