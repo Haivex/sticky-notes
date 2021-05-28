@@ -31,6 +31,8 @@
 .note__content__text {
   padding: 8px;
   outline: none;
+  display: inline-block;
+  white-space: pre-wrap;
 }
 
 .action_buttons {
