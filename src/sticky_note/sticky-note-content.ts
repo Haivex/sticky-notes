@@ -27,6 +27,22 @@ export default class StickyNoteContent implements IStickyNoteContent {
     contentElement.appendChild(text);
     this.container.appendChild(contentElement);
 
+    contentElement.addEventListener('input', () => {
+      this.content = contentElement.textContent || '';
+    });
+
+    this.container.addEventListener('dblclick', () => {
+      const range = document.createRange();
+      const selection = window.getSelection();
+      const lastLineIndex = contentElement.childNodes.length - 1;
+      const lastLine = contentElement.childNodes[lastLineIndex];
+      range.setStart(lastLine, lastLine.textContent?.length || 0);
+      range.collapse(true);
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+      contentElement.focus();
+    });
+
     return this.container;
   }
 
