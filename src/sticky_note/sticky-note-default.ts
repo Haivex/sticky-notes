@@ -1,5 +1,3 @@
-import deleteButton from '../actions/delete';
-import editButton from '../actions/edit';
 import ActionButton from '../action_button/action-button';
 import MeasureOfLength from '../value_objects/measue-of-length';
 import Title from '../value_objects/title';
@@ -14,18 +12,31 @@ const createDefaultStickyNote = (
 ): StickyNote => {
   const mediator = new StickyNoteMediator();
   const renameButton = ActionButton.create(
-    'rename',
+    'Rename',
     ['fas', 'fa-pencil-alt'],
     () =>
       mediator.notify('renameTriggered', {
-        value: Title.create('Other title'),
+        value: undefined,
+      }),
+  );
+  const editButton = ActionButton.create('Edit', ['fas', 'fa-list'], () =>
+    mediator.notify('editTriggered', {
+      value: undefined,
+    }),
+  );
+  const deleteButton = ActionButton.create(
+    'Delete',
+    ['fas', 'fa-trash-alt'],
+    () =>
+      mediator.notify('deleteTriggered', {
+        value: undefined,
       }),
   );
   const createdTitle = Title.create(title);
   const header = StickyNoteHeader.create(createdTitle, mediator, [
     renameButton.render(),
-    editButton,
-    deleteButton,
+    editButton.render(),
+    deleteButton.render(),
   ]);
   const createdContent = StickyNoteContent.create(mediator, content);
   const height = MeasureOfLength.create(250);
