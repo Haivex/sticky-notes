@@ -11,7 +11,14 @@ export default class StickyNote {
     private stickyNoteContent: StickyNoteContent,
     private size: Size,
     public readonly mediator: Mediator,
-  ) {}
+  ) {
+    this.mediator.subscribe('deleteTriggered', {
+      callback: () => {
+        this.container.remove();
+      },
+      thisRef: this.container,
+    });
+  }
 
   render(): HTMLElement {
     this.container.innerHTML = '';
