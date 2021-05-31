@@ -4,12 +4,12 @@ import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
 
 export default class StickyNote {
-  private container = document.createElement('div');
+  protected container = document.createElement('div');
 
   constructor(
     private stickyNoteHeader: StickyNoteHeader,
     private stickyNoteContent: StickyNoteContent,
-    private size: Size,
+    protected size: Size,
     public readonly mediator: Mediator,
   ) {
     this.mediator.subscribe('deleteTriggered', {
