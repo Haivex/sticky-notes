@@ -1,8 +1,5 @@
-import { Mediator } from '../interfaces/mediator.interface';
 import { Size } from '../interfaces/size.interface';
 import StickyNote from '../sticky_note/sticky-note';
-import StickyNoteContent from '../sticky_note/sticky-note-content';
-import StickyNoteHeader from '../sticky_note/sticky-note-header';
 import MeasureOfLength from '../value_objects/measue-of-length';
 
 export default class ResizableStickyNote extends StickyNote {
@@ -10,9 +7,17 @@ export default class ResizableStickyNote extends StickyNote {
 
   private dragbarVertical: HTMLElement = document.createElement('div');
 
-  private initialVerticalPosition = 0;
+  private xBoxStart = 0;
 
-  private isHorizontalPosition = 0;
+  private xBoxEnd = 0;
+
+  private yBoxStart = 0;
+
+  private yBoxEnd = 0;
+
+  private isDraggingX = false;
+
+  private isDraggingY = false;
 
   render(): HTMLElement {
     super.render();
@@ -23,20 +28,36 @@ export default class ResizableStickyNote extends StickyNote {
     this.dragbarHorizontal.style.bottom = '0';
 
     this.dragbarVertical.addEventListener('mousedown', (e) => {
-      this.initialVerticalPosition = e.pageX;
-      document.body.addEventListener('mousemove', this.resize.bind(this));
+      this.xBoxStart = e.pageX - this.size.width.measureNumber;
+      this.xBoxEnd = e.pageX;
+      this.isDraggingX = true;
     });
 
-    this.dragbarVertical.addEventListener('mouseup', (e) => {
-      this.initialVerticalPosition = e.pageX;
+    this.dragbarHorizontal.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      this.yBoxStart = e.pageY - this.size.height.measureNumber;
+      this.yBoxEnd = e.pageY;
+      this.isDraggingY = true;
     });
 
     document.onmouseup = (e) => {
-      document.body.removeEventListener('mousemove', this.resize.bind(this));
+      e.preventDefault();
+      this.isDraggingX = false;
+      this.isDraggingY = false;
       this.changeSize({
-        height: this.size.height,
-        width: MeasureOfLength.create(this.initialVerticalPosition - e.pageX),
+        height: MeasureOfLength.create(this.container.style.height),
+        width: MeasureOfLength.create(this.container.style.width),
       });
+    };
+
+    document.onmousemove = (e) => {
+      e.preventDefault();
+      if (this.isDraggingX) {
+        this.resizeX(e);
+      }
+      if (this.isDraggingY) {
+        this.resizeY(e);
+      }
     };
 
     this.container.appendChild(this.dragbarHorizontal);
@@ -44,9 +65,14 @@ export default class ResizableStickyNote extends StickyNote {
     return this.container;
   }
 
-  resize(e: MouseEvent): void {
+  resizeX(e: MouseEvent): void {
     e.preventDefault();
-    console.log(this.initialVerticalPosition - e.pageX);
+    this.container.style.width = `${e.pageX - this.xBoxStart}px`;
+  }
+
+  resizeY(e: MouseEvent): void {
+    e.preventDefault();
+    this.container.style.height = `${e.pageY - this.yBoxStart}px`;
   }
 
   changeSize(size: Size): void {

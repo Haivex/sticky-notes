@@ -1,15 +1,15 @@
 import ActionButton from '../action_button/action-button';
 import MeasureOfLength from '../value_objects/measue-of-length';
 import Title from '../value_objects/title';
-import StickyNote from './sticky-note';
 import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
 import StickyNoteMediator from './sticky-note-mediator';
+import ResizableStickyNote from '../sticky_note_resizable/sticky-note-resizable';
 
 const createDefaultStickyNote = (
   title: string,
   content?: string,
-): StickyNote => {
+): ResizableStickyNote => {
   const mediator = new StickyNoteMediator();
   const renameButton = ActionButton.create(
     'Rename',
@@ -41,7 +41,7 @@ const createDefaultStickyNote = (
   const createdContent = StickyNoteContent.create(mediator, content);
   const height = MeasureOfLength.create(250);
   const width = MeasureOfLength.create(250);
-  const note = new StickyNote(
+  const note = new ResizableStickyNote(
     header,
     createdContent,
     { height, width },
