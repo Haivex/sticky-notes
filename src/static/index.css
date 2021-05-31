@@ -5,9 +5,12 @@
 }
 
 .note {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  top: 300px;
+  left: 500px;
 }
 
 .note__header {
@@ -52,4 +55,27 @@
 .action_button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.resizable {
+  resize: both;
+  overflow: auto;
+  min-width: 250px;
+  min-height: 250px;
+}
+
+.dragbarVertical {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.dragbarHorizontal {
+  position: absolute;
+  height: 5px;
+  width: 100%;
+  opacity: 0;
+  cursor: ns-resize;
 }
