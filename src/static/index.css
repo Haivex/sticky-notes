@@ -5,12 +5,10 @@
 }
 
 .note {
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  top: 300px;
-  left: 500px;
 }
 
 .note__header {
