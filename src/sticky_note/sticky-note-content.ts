@@ -4,10 +4,26 @@ import { IStickyNoteContent } from '../interfaces/sticky-note/sticky-note-conten
 export default class StickyNoteContent implements IStickyNoteContent {
   private container = document.createElement('div');
 
+  private contentElement = document.createElement('p');
+
   private content;
 
   private constructor(public readonly mediator: Mediator, content?: string) {
     this.content = content || '';
+    this.mediator.subscribe('editTriggered', {
+      callback: () => {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        const lastLineIndex = this.contentElement.childNodes.length - 1;
+        const lastLine = this.contentElement.childNodes[lastLineIndex];
+        range.setStart(lastLine, lastLine.textContent?.length || 0);
+        range.collapse(true);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        this.contentElement.focus();
+      },
+      thisRef: this.contentElement,
+    });
   }
 
   static create(mediator: Mediator, content?: string): StickyNoteContent {
@@ -17,30 +33,30 @@ export default class StickyNoteContent implements IStickyNoteContent {
   render(): HTMLElement {
     this.container.innerHTML = '';
     this.container.className = 'note__content';
+    this.contentElement.innerHTML = '';
 
     const text = document.createTextNode(this.content);
-    const contentElement = document.createElement('p');
-    contentElement.className = 'note__content__text';
-    contentElement.dataset.testid = 'paragraph-element';
-    contentElement.contentEditable = 'true';
+    this.contentElement.className = 'note__content__text';
+    this.contentElement.dataset.testid = 'paragraph-element';
+    this.contentElement.contentEditable = 'true';
 
-    contentElement.appendChild(text);
-    this.container.appendChild(contentElement);
+    this.contentElement.appendChild(text);
+    this.container.appendChild(this.contentElement);
 
-    contentElement.addEventListener('input', () => {
-      this.content = contentElement.textContent || '';
+    this.contentElement.addEventListener('input', () => {
+      this.content = this.contentElement.textContent || '';
     });
 
     this.container.addEventListener('dblclick', () => {
       const range = document.createRange();
       const selection = window.getSelection();
-      const lastLineIndex = contentElement.childNodes.length - 1;
-      const lastLine = contentElement.childNodes[lastLineIndex];
+      const lastLineIndex = this.contentElement.childNodes.length - 1;
+      const lastLine = this.contentElement.childNodes[lastLineIndex];
       range.setStart(lastLine, lastLine.textContent?.length || 0);
       range.collapse(true);
       selection?.removeAllRanges();
       selection?.addRange(range);
-      contentElement.focus();
+      this.contentElement.focus();
     });
 
     return this.container;

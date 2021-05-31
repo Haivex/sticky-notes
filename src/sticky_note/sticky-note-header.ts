@@ -5,16 +5,13 @@ import Title from '../value_objects/title';
 export default class StickyNoteHeader implements IStickyNoteHeader {
   private container = document.createElement('div');
 
+  private header = document.createElement('h2');
+
   private constructor(
     private title: Title,
     public readonly mediator: Mediator,
     public actionButtons?: HTMLButtonElement[],
-  ) {
-    this.mediator.subscribe('renameTriggered', {
-      callback: this.changeTitle,
-      thisRef: this,
-    });
-  }
+  ) {}
 
   static create(
     title: Title,
@@ -27,18 +24,19 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
   render(): HTMLElement {
     this.container.innerHTML = '';
     this.container.className = 'note__header';
+    this.header.innerHTML = '';
 
     const text = document.createTextNode(this.title.value);
-    const header = document.createElement('h2');
-    header.className = 'note__header__title';
 
-    header.appendChild(text);
-    header.dataset.testid = 'title-element';
-    header.contentEditable = 'true';
+    this.header.className = 'note__header__title';
 
-    this.container.appendChild(header);
+    this.header.appendChild(text);
+    this.header.dataset.testid = 'title-element';
+    this.header.contentEditable = 'true';
 
-    header.addEventListener('blur', (e) => {
+    this.container.appendChild(this.header);
+
+    this.header.addEventListener('blur', (e) => {
       const targetElement = e.target as HTMLElement;
       try {
         const title = Title.create(targetElement.textContent as string);
@@ -55,6 +53,21 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
       this.actionButtons.forEach((button) => buttons.appendChild(button));
       this.container.appendChild(buttons);
     }
+
+    this.mediator.subscribe('renameTriggered', {
+      callback: () => {
+        this.header.focus();
+        const range = document.createRange();
+        const selection = window.getSelection();
+        const lastLineIndex = this.header.childNodes.length - 1;
+        const lastLine = this.header.childNodes[lastLineIndex];
+        range.setStart(lastLine, lastLine.textContent?.length || 0);
+        range.collapse(true);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      },
+      thisRef: this.header,
+    });
 
     return this.container;
   }
