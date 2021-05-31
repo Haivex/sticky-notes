@@ -53,3 +53,10 @@
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
+
+.resizable {
+  resize: both;
+  overflow: auto;
+  min-width: 250px;
+  min-height: 250px;
+}
