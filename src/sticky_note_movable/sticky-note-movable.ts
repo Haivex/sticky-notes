@@ -1,40 +1,39 @@
-import StickyNote from '../sticky_note/sticky-note';
+import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 
-export default class MovableStickyNote extends StickyNote {
-  private offsetX = 0;
+const makeMovable = (note: StickyNote): StickyNote => {
+  const givenContainer = note.container;
 
-  private offsetY = 0;
+  let offsetX = 0;
 
-  private isMoving = false;
+  let offsetY = 0;
 
-  render(): HTMLElement {
-    super.render();
+  let isMoving = false;
 
-    this.container.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      this.isMoving = true;
-      this.offsetX = e.offsetX;
-      this.offsetY = e.offsetY;
-    });
+  givenContainer.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isMoving = true;
+    offsetX = e.offsetX;
+    offsetY = e.offsetY;
+  });
 
-    this.container.addEventListener('mousemove', (e) => {
-      e.preventDefault();
-      if (this.isMoving) {
-        if (e.x - this.offsetX > 0) {
-          this.container.style.left = `${e.x - this.offsetX}px`;
-        }
-        if (e.y - this.offsetY > 0)
-          this.container.style.top = `${e.y - this.offsetY}px`;
+  givenContainer.addEventListener('mousemove', (e) => {
+    e.preventDefault();
+    if (isMoving) {
+      if (e.x - offsetX > 0) {
+        givenContainer.style.left = `${e.x - offsetX}px`;
       }
-    });
+      if (e.y - offsetY > 0) givenContainer.style.top = `${e.y - offsetY}px`;
+    }
+  });
 
-    this.container.addEventListener('mouseup', (e) => {
-      e.preventDefault();
-      this.isMoving = false;
-      this.container.style.left = `${e.x - this.offsetX}px`;
-      this.container.style.top = `${e.y - this.offsetY}px`;
-    });
+  givenContainer.addEventListener('mouseup', (e) => {
+    e.preventDefault();
+    isMoving = false;
+    givenContainer.style.left = `${e.x - offsetX}px`;
+    givenContainer.style.top = `${e.y - offsetY}px`;
+  });
 
-    return this.container;
-  }
-}
+  return note;
+};
+
+export default makeMovable;
