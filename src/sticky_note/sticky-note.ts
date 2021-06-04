@@ -26,7 +26,7 @@ const createStickyNote = (
     content: stickyNoteContent,
     size,
     mediator,
-    render: () => container,
+    render: () => self.container,
   };
 
   mediator.subscribe('deleteTriggered', {
