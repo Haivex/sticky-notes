@@ -1,33 +1,42 @@
 import { Mediator } from '../interfaces/mediator.interface';
 import { Size } from '../interfaces/size.interface';
+import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
 
-export default class StickyNote {
-  protected container = document.createElement('div');
+const createStickyNote = (
+  stickyNoteHeader: StickyNoteHeader,
+  stickyNoteContent: StickyNoteContent,
+  size: Size,
+  mediator: Mediator,
+): StickyNote => {
+  const container = document.createElement('div');
 
-  constructor(
-    private stickyNoteHeader: StickyNoteHeader,
-    private stickyNoteContent: StickyNoteContent,
-    protected size: Size,
-    public readonly mediator: Mediator,
-  ) {
-    this.mediator.subscribe('deleteTriggered', {
-      callback: () => {
-        this.container.remove();
-      },
-      thisRef: this.container,
-    });
-  }
+  container.innerHTML = '';
+  container.className = 'note';
+  const headerElement = stickyNoteHeader.render();
+  const contentElement = stickyNoteContent.render();
+  container.append(headerElement, contentElement);
+  container.style.width = size.width.value;
+  container.style.height = size.height.value;
 
-  render(): HTMLElement {
-    this.container.innerHTML = '';
-    this.container.className = 'note';
-    const headerElement = this.stickyNoteHeader.render();
-    const contentElement = this.stickyNoteContent.render();
-    this.container.append(headerElement, contentElement);
-    this.container.style.width = this.size.width.value;
-    this.container.style.height = this.size.height.value;
-    return this.container;
-  }
-}
+  const self = {
+    container,
+    header: stickyNoteHeader,
+    content: stickyNoteContent,
+    size,
+    mediator,
+    render: () => container,
+  };
+
+  mediator.subscribe('deleteTriggered', {
+    callback: () => {
+      self.container.remove();
+    },
+    thisRef: self,
+  });
+
+  return self;
+};
+
+export default createStickyNote;
