@@ -10,4 +10,6 @@ export interface StickyNote {
   size: Size;
   mediator: Mediator;
   render(): HTMLElement;
+  state: string;
+  changeState(state: string): void;
 }

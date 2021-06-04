@@ -27,6 +27,14 @@ const createStickyNote = (
     size,
     mediator,
     render: () => self.container,
+    state: '',
+    changeState: (state: string) => {
+      if (self.state !== state) {
+        self.state = state;
+        return;
+      }
+      self.state = '';
+    },
   };
 
   mediator.subscribe('deleteTriggered', {

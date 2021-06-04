@@ -55,11 +55,15 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.movable {
+  cursor: move;
+}
+
 .resizable {
   resize: both;
   overflow: auto;
-  min-width: 250px;
-  min-height: 250px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 .dragbarVertical {
