@@ -47,8 +47,6 @@ const makeMovable = (note: StickyNote): StickyNote => {
     if (note.state === 'moving') {
       e.preventDefault();
       isMoving = false;
-      givenContainer.style.left = `${e.x - offsetX}px`;
-      givenContainer.style.top = `${e.y - offsetY}px`;
     }
   });
 
