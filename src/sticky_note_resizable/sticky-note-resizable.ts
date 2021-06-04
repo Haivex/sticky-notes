@@ -1,82 +1,67 @@
-import { Size } from '../interfaces/size.interface';
-import StickyNote from '../sticky_note/sticky-note';
-import MeasureOfLength from '../value_objects/measue-of-length';
+import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 
-export default class ResizableStickyNote extends StickyNote {
-  private dragbarHorizontal: HTMLElement = document.createElement('div');
+const makeResizable = (note: StickyNote): StickyNote => {
+  const givenContainer = note.container;
 
-  private dragbarVertical: HTMLElement = document.createElement('div');
+  const dragbarHorizontal: HTMLElement = document.createElement('div');
 
-  private xBoxStart = 0;
+  const dragbarVertical: HTMLElement = document.createElement('div');
 
-  private xBoxEnd = 0;
+  let xBoxStart = 0;
 
-  private yBoxStart = 0;
+  let yBoxStart = 0;
 
-  private yBoxEnd = 0;
+  let isDraggingX = false;
 
-  private isDraggingX = false;
+  let isDraggingY = false;
 
-  private isDraggingY = false;
-
-  render(): HTMLElement {
-    super.render();
-    this.container.classList.add('resizable');
-    this.dragbarVertical.classList.add('dragbarVertical');
-    this.dragbarVertical.style.right = '0';
-    this.dragbarHorizontal.classList.add('dragbarHorizontal');
-    this.dragbarHorizontal.style.bottom = '0';
-
-    this.dragbarVertical.addEventListener('mousedown', (e) => {
-      this.xBoxStart = e.pageX - this.size.width.measureNumber;
-      this.xBoxEnd = e.pageX;
-      this.isDraggingX = true;
-    });
-
-    this.dragbarHorizontal.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      this.yBoxStart = e.pageY - this.size.height.measureNumber;
-      this.yBoxEnd = e.pageY;
-      this.isDraggingY = true;
-    });
-
-    document.onmouseup = (e) => {
-      e.preventDefault();
-      this.isDraggingX = false;
-      this.isDraggingY = false;
-      this.changeSize({
-        height: MeasureOfLength.create(this.container.style.height),
-        width: MeasureOfLength.create(this.container.style.width),
-      });
-    };
-
-    document.onmousemove = (e) => {
-      e.preventDefault();
-      if (this.isDraggingX) {
-        this.resizeX(e);
-      }
-      if (this.isDraggingY) {
-        this.resizeY(e);
-      }
-    };
-
-    this.container.appendChild(this.dragbarHorizontal);
-    this.container.appendChild(this.dragbarVertical);
-    return this.container;
-  }
-
-  resizeX(e: MouseEvent): void {
+  const resizeX = (e: MouseEvent) => {
     e.preventDefault();
-    this.container.style.width = `${e.pageX - this.xBoxStart}px`;
-  }
+    givenContainer.style.width = `${e.pageX - xBoxStart}px`;
+  };
 
-  resizeY(e: MouseEvent): void {
+  const resizeY = (e: MouseEvent) => {
     e.preventDefault();
-    this.container.style.height = `${e.pageY - this.yBoxStart}px`;
-  }
+    givenContainer.style.height = `${e.pageY - yBoxStart}px`;
+  };
 
-  changeSize(size: Size): void {
-    this.size = size;
-    this.render();
-  }
-}
+  givenContainer.classList.add('resizable');
+  dragbarVertical.classList.add('dragbarVertical');
+  dragbarVertical.style.right = '0';
+  dragbarHorizontal.classList.add('dragbarHorizontal');
+  dragbarHorizontal.style.bottom = '0';
+
+  dragbarVertical.addEventListener('mousedown', (e) => {
+    xBoxStart = e.pageX - givenContainer.clientWidth;
+    isDraggingX = true;
+  });
+
+  dragbarHorizontal.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    yBoxStart = e.pageY - givenContainer.clientHeight;
+    isDraggingY = true;
+  });
+
+  document.onmouseup = (e) => {
+    e.preventDefault();
+    isDraggingX = false;
+    isDraggingY = false;
+  };
+
+  document.onmousemove = (e) => {
+    e.preventDefault();
+    if (isDraggingX) {
+      resizeX(e);
+    }
+    if (isDraggingY) {
+      resizeY(e);
+    }
+  };
+
+  givenContainer.appendChild(dragbarHorizontal);
+  givenContainer.appendChild(dragbarVertical);
+
+  return note;
+};
+
+export default makeResizable;
