@@ -24,25 +24,17 @@ export default class StickyNoteContent implements IStickyNoteContent {
   }
 
   render(): HTMLElement {
-    this.container.innerHTML = '';
-    this.container.className = 'note__content';
-    this.contentElement.innerHTML = '';
+    this.clearElements();
+    this.initClasses();
 
-    const text = document.createTextNode(this.content);
-    this.contentElement.className = 'note__content__text';
     this.contentElement.dataset.testid = 'paragraph-element';
     this.contentElement.contentEditable = 'true';
 
+    this.initEvents();
+
+    const text = document.createTextNode(this.content);
     this.contentElement.appendChild(text);
     this.container.appendChild(this.contentElement);
-
-    this.contentElement.addEventListener('input', () => {
-      this.content = this.contentElement.textContent || '';
-    });
-
-    this.container.addEventListener('dblclick', () => {
-      focusLastLine(this.contentElement);
-    });
 
     return this.container;
   }
@@ -55,5 +47,25 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.content = newContent;
     this.render();
     return this.content;
+  }
+
+  private clearElements() {
+    this.container.innerHTML = '';
+    this.contentElement.innerHTML = '';
+  }
+
+  private initEvents() {
+    this.contentElement.addEventListener('input', () => {
+      this.content = this.contentElement.textContent || '';
+    });
+
+    this.container.addEventListener('dblclick', () => {
+      focusLastLine(this.contentElement);
+    });
+  }
+
+  private initClasses() {
+    this.container.className = 'note__content';
+    this.contentElement.className = 'note__content__text';
   }
 }
