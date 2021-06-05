@@ -1,40 +1,56 @@
-import StickyNote from '../sticky_note/sticky-note';
+import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 
-export default class MovableStickyNote extends StickyNote {
-  private offsetX = 0;
+const makeMovable = (note: StickyNote): StickyNote => {
+  const givenContainer = note.container;
 
-  private offsetY = 0;
-
-  private isMoving = false;
-
-  render(): HTMLElement {
-    super.render();
-
-    this.container.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      this.isMoving = true;
-      this.offsetX = e.offsetX;
-      this.offsetY = e.offsetY;
-    });
-
-    this.container.addEventListener('mousemove', (e) => {
-      e.preventDefault();
-      if (this.isMoving) {
-        if (e.x - this.offsetX > 0) {
-          this.container.style.left = `${e.x - this.offsetX}px`;
-        }
-        if (e.y - this.offsetY > 0)
-          this.container.style.top = `${e.y - this.offsetY}px`;
+  note.mediator.subscribe('moveTriggered', {
+    callback: () => {
+      if (note.state === 'moving') {
+        note.changeState('moving');
+        givenContainer.classList.remove('movable');
+      } else {
+        note.changeState('moving');
+        givenContainer.classList.add('movable');
       }
-    });
+    },
+    thisRef: note,
+  });
 
-    this.container.addEventListener('mouseup', (e) => {
+  let offsetX = 0;
+
+  let offsetY = 0;
+
+  let isMoving = false;
+
+  givenContainer.addEventListener('mousedown', (e) => {
+    if (note.state === 'moving') {
       e.preventDefault();
-      this.isMoving = false;
-      this.container.style.left = `${e.x - this.offsetX}px`;
-      this.container.style.top = `${e.y - this.offsetY}px`;
-    });
+      isMoving = true;
+      offsetX = e.offsetX;
+      offsetY = e.offsetY;
+    }
+  });
 
-    return this.container;
-  }
-}
+  givenContainer.addEventListener('mousemove', (e) => {
+    if (note.state === 'moving') {
+      e.preventDefault();
+      if (isMoving) {
+        if (e.x - offsetX > 0) {
+          givenContainer.style.left = `${e.x - offsetX}px`;
+        }
+        if (e.y - offsetY > 0) givenContainer.style.top = `${e.y - offsetY}px`;
+      }
+    }
+  });
+
+  givenContainer.addEventListener('mouseup', (e) => {
+    if (note.state === 'moving') {
+      e.preventDefault();
+      isMoving = false;
+    }
+  });
+
+  return note;
+};
+
+export default makeMovable;

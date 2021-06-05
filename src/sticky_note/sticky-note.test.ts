@@ -4,7 +4,7 @@
 import { getByTestId } from '@testing-library/dom';
 import MeasureOfLength from '../value_objects/measue-of-length';
 import Title from '../value_objects/title';
-import StickyNote from './sticky-note';
+import createStickyNote from './sticky-note';
 import StickyNoteContent from './sticky-note-content';
 import StickyNoteHeader from './sticky-note-header';
 import StickyNoteMediator from './sticky-note-mediator';
@@ -23,7 +23,7 @@ describe('render', () => {
     );
     const height = MeasureOfLength.create(100);
     const width = MeasureOfLength.create(100);
-    const note = new StickyNote(
+    const note = createStickyNote(
       header,
       createdContent,
       { height, width },
