@@ -1,5 +1,6 @@
 import { Mediator } from '../interfaces/mediator.interface';
 import { IStickyNoteContent } from '../interfaces/sticky-note/sticky-note-content.interface';
+import focusLastLine from '../utils/focus-last-line';
 
 export default class StickyNoteContent implements IStickyNoteContent {
   private container = document.createElement('div');
@@ -12,15 +13,7 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.content = content || '';
     this.mediator.subscribe('editTriggered', {
       callback: () => {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        const lastLineIndex = this.contentElement.childNodes.length - 1;
-        const lastLine = this.contentElement.childNodes[lastLineIndex];
-        range.setStart(lastLine, lastLine.textContent?.length || 0);
-        range.collapse(true);
-        selection?.removeAllRanges();
-        selection?.addRange(range);
-        this.contentElement.focus();
+        focusLastLine(this.contentElement);
       },
       thisRef: this.contentElement,
     });
@@ -48,15 +41,7 @@ export default class StickyNoteContent implements IStickyNoteContent {
     });
 
     this.container.addEventListener('dblclick', () => {
-      const range = document.createRange();
-      const selection = window.getSelection();
-      const lastLineIndex = this.contentElement.childNodes.length - 1;
-      const lastLine = this.contentElement.childNodes[lastLineIndex];
-      range.setStart(lastLine, lastLine.textContent?.length || 0);
-      range.collapse(true);
-      selection?.removeAllRanges();
-      selection?.addRange(range);
-      this.contentElement.focus();
+      focusLastLine(this.contentElement);
     });
 
     return this.container;
