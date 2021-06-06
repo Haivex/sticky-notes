@@ -4,11 +4,25 @@
   padding: 0;
 }
 
+#root {
+  display: flex;
+}
+
+.app {
+  width: 100%;
+}
+
 .note {
-  position: absolute;
+  position: static;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+}
+
+.noteContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .note__header {
@@ -83,11 +97,13 @@
 }
 
 .titleInput {
+  padding: 8px;
   border: 1px solid #333;
   border-radius: 10px;
 }
 
 .messageTextarea {
+  padding: 8px;
   border: 1px solid #333;
   border-radius: 10px;
 }
@@ -101,4 +117,5 @@
 .addNote {
   border: 1px solid #333;
   border-radius: 10px;
+  padding: 8px;
 }

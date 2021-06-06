@@ -28,7 +28,7 @@ const addNoteForm = (): HTMLElement => {
     );
     messageTextarea.value = '';
     titleInput.value = '';
-    document.body.appendChild(createdNote.render());
+    document.querySelector('.noteContainer').appendChild(createdNote.render());
   });
 
   form.append(titleInput, messageTextarea, addButton);

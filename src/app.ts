@@ -1,5 +1,11 @@
 import addNoteForm from './add_note_form/addNoteForm';
-import createDefaultStickyNote from './sticky_note/sticky-note-default';
+import createNoteContainer from './note_container/note-container';
 
-const app = (): HTMLElement => addNoteForm();
+const appContainer = document.createElement('div');
+appContainer.className = 'app';
+
+const app = (): HTMLElement => {
+  appContainer.append(addNoteForm(), createNoteContainer());
+  return appContainer;
+};
 export default app;
