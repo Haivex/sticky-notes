@@ -1,5 +1,6 @@
 import { Mediator } from '../interfaces/mediator.interface';
 import { IStickyNoteContent } from '../interfaces/sticky-note/sticky-note-content.interface';
+import focusLastLine from '../utils/focus-last-line';
 
 export default class StickyNoteContent implements IStickyNoteContent {
   private container = document.createElement('div');
@@ -12,15 +13,7 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.content = content || '';
     this.mediator.subscribe('editTriggered', {
       callback: () => {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        const lastLineIndex = this.contentElement.childNodes.length - 1;
-        const lastLine = this.contentElement.childNodes[lastLineIndex];
-        range.setStart(lastLine, lastLine.textContent?.length || 0);
-        range.collapse(true);
-        selection?.removeAllRanges();
-        selection?.addRange(range);
-        this.contentElement.focus();
+        focusLastLine(this.contentElement);
       },
       thisRef: this.contentElement,
     });
@@ -31,33 +24,17 @@ export default class StickyNoteContent implements IStickyNoteContent {
   }
 
   render(): HTMLElement {
-    this.container.innerHTML = '';
-    this.container.className = 'note__content';
-    this.contentElement.innerHTML = '';
+    this.clearElements();
+    this.initClasses();
 
-    const text = document.createTextNode(this.content);
-    this.contentElement.className = 'note__content__text';
     this.contentElement.dataset.testid = 'paragraph-element';
     this.contentElement.contentEditable = 'true';
 
+    this.initEvents();
+
+    const text = document.createTextNode(this.content);
     this.contentElement.appendChild(text);
     this.container.appendChild(this.contentElement);
-
-    this.contentElement.addEventListener('input', () => {
-      this.content = this.contentElement.textContent || '';
-    });
-
-    this.container.addEventListener('dblclick', () => {
-      const range = document.createRange();
-      const selection = window.getSelection();
-      const lastLineIndex = this.contentElement.childNodes.length - 1;
-      const lastLine = this.contentElement.childNodes[lastLineIndex];
-      range.setStart(lastLine, lastLine.textContent?.length || 0);
-      range.collapse(true);
-      selection?.removeAllRanges();
-      selection?.addRange(range);
-      this.contentElement.focus();
-    });
 
     return this.container;
   }
@@ -70,5 +47,25 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.content = newContent;
     this.render();
     return this.content;
+  }
+
+  private clearElements() {
+    this.container.innerHTML = '';
+    this.contentElement.innerHTML = '';
+  }
+
+  private initEvents() {
+    this.contentElement.addEventListener('input', () => {
+      this.content = this.contentElement.textContent || '';
+    });
+
+    this.container.addEventListener('dblclick', () => {
+      focusLastLine(this.contentElement);
+    });
+  }
+
+  private initClasses() {
+    this.container.className = 'note__content';
+    this.contentElement.className = 'note__content__text';
   }
 }
