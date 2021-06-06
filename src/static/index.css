@@ -81,3 +81,24 @@
   opacity: 0;
   cursor: ns-resize;
 }
+
+.titleInput {
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.messageTextarea {
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.noteForm {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.addNote {
+  border: 1px solid #333;
+  border-radius: 10px;
+}
