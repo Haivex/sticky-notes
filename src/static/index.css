@@ -4,25 +4,17 @@
   padding: 0;
 }
 
-#root {
-  display: flex;
-}
-
-.app {
-  width: 100%;
-}
-
 .note {
-  position: static;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
 }
 
 .noteContainer {
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .note__header {
