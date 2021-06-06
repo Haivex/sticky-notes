@@ -6,7 +6,7 @@ const makeMovable = (note: StickyNote): StickyNote => {
   note.mediator.subscribe('moveTriggered', {
     callback: () => {
       if (note.state === 'moving') {
-        note.changeState('moving');
+        note.changeState('');
         givenContainer.classList.remove('movable');
       } else {
         note.changeState('moving');
