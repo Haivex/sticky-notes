@@ -2,7 +2,7 @@
 Movable and resizable sticky notes without library (for collision, resize, and movable objects)
 
 ## Purpose of the project
-Purpose of the project was to learn how to resize and move objects without using any library.
+Purpose of the project was to learn how to resize and move objects without using any library, and using Drag and Drop API for file upload. I also tryied to apply some Domain Driven Design concepts: Value Objects, Events.
 
 ## Features
 - move sticky notes
