@@ -11,5 +11,5 @@ Purpose of the project was to learn how to resize and move objects without using
 - edit title ( by the button or click on title)
 - edit content ( by the button or click on text or double click on content element)
 
-##Coming Features
+## Coming Features
 - drop text file on textarea or sticky note content to update text
