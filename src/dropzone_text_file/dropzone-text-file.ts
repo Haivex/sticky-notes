@@ -1,15 +1,16 @@
 const createTextareaDropzone = (
-  textarea: HTMLInputElement,
-): HTMLInputElement => {
+  textarea: HTMLTextAreaElement,
+): HTMLTextAreaElement => {
   const givenElement = textarea;
-  textarea.addEventListener('drop', (e) => {
+  givenElement.addEventListener('drop', (e) => {
+    e.preventDefault();
     if (!e.dataTransfer || !e.dataTransfer.files) return;
 
-    const { item, length } = e.dataTransfer.files;
+    const fileList = e.dataTransfer.files;
 
-    if (length > 1 || item(0) == null) return;
+    if (fileList.length > 1) return;
 
-    const file = item(0) as File;
+    const file = fileList.item(0) as File;
 
     file.text().then((extractedText) => {
       givenElement.value = extractedText;
