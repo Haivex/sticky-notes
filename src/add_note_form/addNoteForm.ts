@@ -1,4 +1,5 @@
 import createDefaultStickyNote from '../sticky_note/sticky-note-default';
+import createTextareaDropzone from '../dropzone_text_file/dropzone-text-file';
 
 const addNoteForm = (): HTMLElement => {
   const titleInput = document.createElement('input');
@@ -9,6 +10,8 @@ const addNoteForm = (): HTMLElement => {
   const messageTextarea = document.createElement('textarea');
   messageTextarea.placeholder = 'Message';
   messageTextarea.className = 'messageTextarea';
+
+  const textareaDropzone = createTextareaDropzone(messageTextarea);
 
   const form = document.createElement('form');
   form.className = 'noteForm';
@@ -24,14 +27,14 @@ const addNoteForm = (): HTMLElement => {
   addButton.addEventListener('click', () => {
     const createdNote = createDefaultStickyNote(
       titleInput.value,
-      messageTextarea.value,
+      textareaDropzone.value,
     );
-    messageTextarea.value = '';
+    textareaDropzone.value = '';
     titleInput.value = '';
     document.querySelector('.noteContainer').appendChild(createdNote.render());
   });
 
-  form.append(titleInput, messageTextarea, addButton);
+  form.append(titleInput, textareaDropzone, addButton);
 
   return form;
 };
