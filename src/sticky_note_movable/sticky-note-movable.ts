@@ -25,6 +25,7 @@ const makeMovable = (note: StickyNote): StickyNote => {
   givenContainer.addEventListener('mousedown', (e) => {
     if (note.state === 'moving') {
       e.preventDefault();
+      givenContainer.style.position = 'absolute';
       isMoving = true;
       offsetX = e.offsetX;
       offsetY = e.offsetY;
