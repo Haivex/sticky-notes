@@ -35,7 +35,7 @@ const addNoteForm = (): HTMLElement => {
     );
     textareaDropzone.value = '';
     titleInput.value = '';
-    document.querySelector('.noteContainer').appendChild(createdNote.render());
+    document.querySelector('.notesContainer').appendChild(createdNote.render());
   });
 
   form.append(h2, titleInput, textareaDropzone, addButton);

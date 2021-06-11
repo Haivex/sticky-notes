@@ -1,6 +1,6 @@
 const createNoteContainer = (): HTMLElement => {
   const noteContainer = document.createElement('div');
-  noteContainer.className = 'noteContainer';
+  noteContainer.className = 'notesContainer';
 
   return noteContainer;
 };
