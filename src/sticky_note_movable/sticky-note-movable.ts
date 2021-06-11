@@ -24,24 +24,28 @@ const makeMovable = (note: StickyNote): StickyNote => {
 
   let startY = 0;
 
+  let notesContainerPosEndX = 0;
+
+  let notesContainerPosEndY = 0;
+
   let isMoving = false;
 
   const notesContainerPosX = notesContainer.getBoundingClientRect().left;
   const notesContainerPosY = notesContainer.getBoundingClientRect().top;
-
-  const notesContainerPosEndX =
-    notesContainer.getBoundingClientRect().left +
-    notesContainer.getBoundingClientRect().width;
-  const notesContainerPosEndY =
-    notesContainer.getBoundingClientRect().top +
-    notesContainer.getBoundingClientRect().height;
 
   givenContainer.addEventListener('mousedown', (e) => {
     if (note.state === 'moving') {
       e.preventDefault();
       isMoving = true;
       startX = givenContainer.getBoundingClientRect().left - e.pageX;
-      startY = givenContainer.getBoundingClientRect().top - e.pageY;
+      startY = e.clientY - givenContainer.getBoundingClientRect().top;
+
+      notesContainerPosEndX =
+        notesContainer.getBoundingClientRect().left +
+        notesContainer.getBoundingClientRect().width;
+      notesContainerPosEndY =
+        notesContainer.getBoundingClientRect().top +
+        notesContainer.getBoundingClientRect().height;
     }
   });
 
@@ -50,7 +54,7 @@ const makeMovable = (note: StickyNote): StickyNote => {
       e.preventDefault();
       if (isMoving) {
         let currentPositionX = e.x + startX;
-        let currentPositionY = e.y + startY;
+        let currentPositionY = e.pageY - startY;
 
         if (currentPositionX < notesContainerPosX + 8) {
           currentPositionX = notesContainerPosX + 8;
@@ -64,20 +68,22 @@ const makeMovable = (note: StickyNote): StickyNote => {
             notesContainerPosEndX - 8 - givenContainer.clientWidth;
         }
 
-        if (currentPositionY < notesContainerPosY + 8) {
-          currentPositionY = notesContainerPosY + 8;
+        if (currentPositionY < notesContainerPosY + 10) {
+          currentPositionY = notesContainerPosY + 10;
         }
 
         if (
           currentPositionY + givenContainer.clientHeight >
-          notesContainerPosEndY - 8
+          notesContainerPosEndY - 10
         ) {
-          currentPositionX =
-            notesContainerPosEndX - 8 - givenContainer.clientHeight;
+          currentPositionY =
+            notesContainerPosEndY - 10 - givenContainer.clientHeight;
         }
 
         givenContainer.style.left = `${currentPositionX}px`;
         givenContainer.style.top = `${currentPositionY}px`;
+
+        console.log(givenContainer.style.top);
       }
     }
   });
