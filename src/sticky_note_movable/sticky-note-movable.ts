@@ -1,7 +1,7 @@
 import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 
 const makeMovable = (note: StickyNote): StickyNote => {
-  const givenContainer = note.container;
+  const givenNote = note.container;
 
   const notesContainer = document.querySelector(
     '.notesContainer',
@@ -11,10 +11,10 @@ const makeMovable = (note: StickyNote): StickyNote => {
     callback: () => {
       if (note.state === 'moving') {
         note.changeState('');
-        givenContainer.classList.remove('movable');
+        givenNote.classList.remove('movable');
       } else {
         note.changeState('moving');
-        givenContainer.classList.add('movable');
+        givenNote.classList.add('movable');
       }
     },
     thisRef: note,
@@ -33,12 +33,12 @@ const makeMovable = (note: StickyNote): StickyNote => {
   const notesContainerPosX = notesContainer.getBoundingClientRect().left;
   const notesContainerPosY = notesContainer.getBoundingClientRect().top;
 
-  givenContainer.addEventListener('mousedown', (e) => {
+  givenNote.addEventListener('mousedown', (e) => {
     if (note.state === 'moving') {
       e.preventDefault();
       isMoving = true;
-      startX = givenContainer.getBoundingClientRect().left - e.pageX;
-      startY = e.clientY - givenContainer.getBoundingClientRect().top;
+      startX = givenNote.getBoundingClientRect().left - e.pageX;
+      startY = e.clientY - givenNote.getBoundingClientRect().top;
 
       notesContainerPosEndX =
         notesContainer.getBoundingClientRect().left +
@@ -49,7 +49,7 @@ const makeMovable = (note: StickyNote): StickyNote => {
     }
   });
 
-  givenContainer.addEventListener('mousemove', (e) => {
+  givenNote.addEventListener('mousemove', (e) => {
     if (note.state === 'moving') {
       e.preventDefault();
       if (isMoving) {
@@ -61,34 +61,30 @@ const makeMovable = (note: StickyNote): StickyNote => {
         }
 
         if (
-          currentPositionX + givenContainer.clientWidth >
+          currentPositionX + givenNote.clientWidth >
           notesContainerPosEndX - 8
         ) {
-          currentPositionX =
-            notesContainerPosEndX - 8 - givenContainer.clientWidth;
+          currentPositionX = notesContainerPosEndX - 8 - givenNote.clientWidth;
         }
 
         if (currentPositionY < notesContainerPosY + 10) {
-          currentPositionY = notesContainerPosY + 10;
+          currentPositionY = notesContainerPosY + 8;
         }
 
         if (
-          currentPositionY + givenContainer.clientHeight >
-          notesContainerPosEndY - 10
+          currentPositionY + givenNote.clientHeight >
+          notesContainerPosEndY + givenNote.clientHeight
         ) {
-          currentPositionY =
-            notesContainerPosEndY - 10 - givenContainer.clientHeight;
+          currentPositionY = notesContainerPosEndY + 12;
         }
 
-        givenContainer.style.left = `${currentPositionX}px`;
-        givenContainer.style.top = `${currentPositionY}px`;
-
-        console.log(givenContainer.style.top);
+        givenNote.style.left = `${currentPositionX}px`;
+        givenNote.style.top = `${currentPositionY}px`;
       }
     }
   });
 
-  givenContainer.addEventListener('mouseup', (e) => {
+  givenNote.addEventListener('mouseup', (e) => {
     if (note.state === 'moving') {
       e.preventDefault();
       isMoving = false;
