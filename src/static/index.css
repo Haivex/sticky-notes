@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+body {
+  padding: 8px;
+}
+
 .note {
   position: absolute;
   display: flex;
@@ -12,6 +16,9 @@
 }
 
 .noteContainer {
+  border: 8px double black;
+  padding: 8px;
+  min-height: 50vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -92,18 +99,21 @@
   padding: 8px;
   border: 1px solid #333;
   border-radius: 10px;
+  margin-bottom: 8px;
 }
 
 .messageTextarea {
   padding: 8px;
   border: 1px solid #333;
   border-radius: 10px;
+  margin-bottom: 8px;
 }
 
 .noteForm {
   display: flex;
   flex-direction: column;
   width: 25%;
+  margin-bottom: 8px;
 }
 
 .addNote {
