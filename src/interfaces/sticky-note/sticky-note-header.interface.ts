@@ -5,4 +5,5 @@ export interface IStickyNoteHeader {
   actionButtons?: HTMLButtonElement[];
   render(): HTMLElement;
   getContainer(): HTMLElement;
+  getButtonsContainer(): HTMLElement;
 }

@@ -10,9 +10,18 @@ const makeColorful = (
   givenNote.content.getContainer().style.backgroundColor =
     colorPalette.primaryBgColor;
   givenNote.content.getContainer().style.color = colorPalette.primaryTextColor;
+
   givenNote.header.getContainer().style.backgroundColor =
     colorPalette.secondaryBgColor;
   givenNote.header.getContainer().style.color = colorPalette.secondaryTextColor;
+
+  givenNote.header
+    .getButtonsContainer()
+    .querySelectorAll('button')
+    .forEach((button) => {
+      const givenButton = button;
+      givenButton.style.color = colorPalette.secondaryTextColor;
+    });
 
   return givenNote;
 };

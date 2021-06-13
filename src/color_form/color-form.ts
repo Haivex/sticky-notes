@@ -30,6 +30,7 @@ const createColorForm = (possibleColors: ColorPalette[]): HTMLFormElement => {
   });
 
   labels[0].classList.add('selected');
+  labels[0].children[0].checked = true;
 
   form.append(...labels);
 
