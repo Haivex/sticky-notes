@@ -8,10 +8,14 @@ import createStickyNote from './sticky-note';
 import { StickyNote } from '../interfaces/sticky-note/sticky-note.interface';
 import makeMovable from '../sticky_note_movable/sticky-note-movable';
 import makeResizable from '../sticky_note_resizable/sticky-note-resizable';
+import makeColorful from '../sticky_note_colorful/sticky-note-colorful';
+import possibleColors from '../color_form/possible-colors';
+import { ColorPalette } from '../interfaces/color-palette.interface';
 
 const createDefaultStickyNote = (
   title: string,
   content?: string,
+  colorPalette: ColorPalette,
 ): StickyNote => {
   const mediator = new StickyNoteMediator();
   const renameButton = ActionButton.create(
@@ -59,8 +63,12 @@ const createDefaultStickyNote = (
 
   const movableStickyNote = makeMovable(note);
   const resizableAndMovableStickyNote = makeResizable(movableStickyNote);
+  const colorfulNote = makeColorful(
+    resizableAndMovableStickyNote,
+    colorPalette,
+  );
 
-  return resizableAndMovableStickyNote;
+  return colorfulNote;
 };
 
 export default createDefaultStickyNote;

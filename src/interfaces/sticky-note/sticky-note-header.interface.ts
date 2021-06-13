@@ -4,4 +4,6 @@ export interface IStickyNoteHeader {
   getTitle(): Title;
   actionButtons?: HTMLButtonElement[];
   render(): HTMLElement;
+  getContainer(): HTMLElement;
+  getButtonsContainer(): HTMLElement;
 }
