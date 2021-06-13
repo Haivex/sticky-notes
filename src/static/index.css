@@ -151,3 +151,21 @@ footer {
   margin-top: 8px;
   text-align: right;
 }
+
+.colorForm {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.colorButton {
+  width: 25px;
+  height: 25px;
+}
+
+.selected {
+  border: 1px solid black;
+  outline: 1px solid black;
+  outline-offset: 2px;
+}
