@@ -42,13 +42,13 @@ const makeResizable = (note: StickyNote): StickyNote => {
     isDraggingY = true;
   });
 
-  document.onmouseup = (e) => {
+  document.addEventListener('mouseup', (e) => {
     e.preventDefault();
     isDraggingX = false;
     isDraggingY = false;
-  };
+  });
 
-  document.onmousemove = (e) => {
+  document.addEventListener('mousemove', (e) => {
     e.preventDefault();
     if (isDraggingX) {
       resizeX(e);
@@ -56,7 +56,7 @@ const makeResizable = (note: StickyNote): StickyNote => {
     if (isDraggingY) {
       resizeY(e);
     }
-  };
+  });
 
   givenContainer.appendChild(dragbarHorizontal);
   givenContainer.appendChild(dragbarVertical);
