@@ -159,10 +159,14 @@ footer {
   margin-bottom: 8px;
 }
 
-.colorButton {
+.colorLabel {
   border: 1px solid black;
   width: 25px;
   height: 25px;
+}
+
+.colorRadio {
+  visibility: hidden;
 }
 
 .selected {

@@ -1,4 +1,4 @@
-import { ColorPalette } from './color-palette.interface';
+import { ColorPalette } from '../interfaces/color-palette.interface';
 
 const possibleColors: ColorPalette[] = [
   {

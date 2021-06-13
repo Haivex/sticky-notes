@@ -11,12 +11,7 @@ h2.className = 'title';
 h2.textContent = 'Sticky notes';
 
 const app = (): HTMLElement => {
-  appContainer.append(
-    h2,
-    createColorForm(possibleColors),
-    addNoteForm(),
-    createNoteContainer(),
-  );
+  appContainer.append(h2, addNoteForm(), createNoteContainer());
   return appContainer;
 };
 export default app;
