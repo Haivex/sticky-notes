@@ -11,7 +11,7 @@ const createColorForm = (possibleColors: ColorPalette[]): HTMLFormElement => {
   possibleColors.forEach((colorPalette) => {
     const colorButton = document.createElement('button');
     colorButton.className = 'colorButton';
-    colorButton.style.backgroundColor = colorPalette.primaryColor;
+    colorButton.style.backgroundColor = colorPalette.primaryBgColor;
 
     colorButton.addEventListener('click', () => {
       buttons.forEach((button) => {

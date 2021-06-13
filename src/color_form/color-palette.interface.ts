@@ -1,5 +1,6 @@
 export interface ColorPalette {
-  primaryColor: string;
-  secondaryColor: string;
-  textColor: string;
+  primaryBgColor: string;
+  secondaryBgColor: string;
+  primaryTextColor: string;
+  secondaryTextColor: string;
 }
