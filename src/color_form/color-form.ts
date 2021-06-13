@@ -1,4 +1,6 @@
-const createColorForm = (possibleColors: string[]) => {
+import { ColorPalette } from './color-palette.interface';
+
+const createColorForm = (possibleColors: ColorPalette[]): HTMLFormElement => {
   const form = document.createElement('form');
   form.className = 'colorForm';
 
@@ -6,10 +8,10 @@ const createColorForm = (possibleColors: string[]) => {
 
   const buttons: HTMLButtonElement[] = [];
 
-  possibleColors.forEach((color) => {
+  possibleColors.forEach((colorPalette) => {
     const colorButton = document.createElement('button');
     colorButton.className = 'colorButton';
-    colorButton.style.backgroundColor = color;
+    colorButton.style.backgroundColor = colorPalette.primaryColor;
 
     colorButton.addEventListener('click', () => {
       buttons.forEach((button) => {
