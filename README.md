@@ -7,11 +7,10 @@ Purpose of the project was to learn how to resize and move objects without using
 ## Features
 - move sticky notes inside bordered container
 - resize sticky notes
-- create sticky note with given title and content
+- create sticky note with given title, content and color
 - edit title ( by the button or click on title)
 - edit content ( by the button or click on text or double click on content element)
 - drop text file on textarea to update text
 
 ## Coming Features
-- color note choice
 - sticky note collision with other sticky notes
