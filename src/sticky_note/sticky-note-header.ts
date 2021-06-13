@@ -96,7 +96,7 @@ export default class StickyNoteHeader implements IStickyNoteHeader {
     return this.container;
   }
 
-  public getButtonsContainer(): HTMlElement {
+  public getButtonsContainer(): HTMLElement {
     return this.buttonsContainer;
   }
 }
