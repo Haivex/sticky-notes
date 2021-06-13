@@ -5,7 +5,7 @@ import focusLastLine from '../utils/focus-last-line';
 export default class StickyNoteContent implements IStickyNoteContent {
   private container = document.createElement('div');
 
-  private contentElement = document.createElement('p');
+  private contentTextElement = document.createElement('p');
 
   private content;
 
@@ -13,9 +13,9 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.content = content || '';
     this.mediator.subscribe('editTriggered', {
       callback: () => {
-        focusLastLine(this.contentElement);
+        focusLastLine(this.contentTextElement);
       },
-      thisRef: this.contentElement,
+      thisRef: this.contentTextElement,
     });
   }
 
@@ -27,14 +27,14 @@ export default class StickyNoteContent implements IStickyNoteContent {
     this.clearElements();
     this.initClasses();
 
-    this.contentElement.dataset.testid = 'paragraph-element';
-    this.contentElement.contentEditable = 'true';
+    this.contentTextElement.dataset.testid = 'paragraph-element';
+    this.contentTextElement.contentEditable = 'true';
 
     this.initEvents();
 
     const text = document.createTextNode(this.content);
-    this.contentElement.appendChild(text);
-    this.container.appendChild(this.contentElement);
+    this.contentTextElement.appendChild(text);
+    this.container.appendChild(this.contentTextElement);
 
     return this.container;
   }
@@ -51,21 +51,25 @@ export default class StickyNoteContent implements IStickyNoteContent {
 
   private clearElements() {
     this.container.innerHTML = '';
-    this.contentElement.innerHTML = '';
+    this.contentTextElement.innerHTML = '';
   }
 
   private initEvents() {
-    this.contentElement.addEventListener('input', () => {
-      this.content = this.contentElement.textContent || '';
+    this.contentTextElement.addEventListener('input', () => {
+      this.content = this.contentTextElement.textContent || '';
     });
 
     this.container.addEventListener('dblclick', () => {
-      focusLastLine(this.contentElement);
+      focusLastLine(this.contentTextElement);
     });
   }
 
   private initClasses() {
     this.container.className = 'note__content';
-    this.contentElement.className = 'note__content__text';
+    this.contentTextElement.className = 'note__content__text';
+  }
+
+  public getContainer(): HTMLElement {
+    return this.container;
   }
 }
